@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="mall/header::head-fragment('商城-秒杀','promotion')">
+<body>
+<header th:replace="mall/header::header-fragment"></header>
+<content id="content">
+    <nav th:replace="mall/header::nav-fragment"></nav>
+    <div class="title">
+        <h3></h3>
+    </div>
+    <div id="promotion">
+        <ul>
+            <!-- 已配置推荐商品则显示配置内容 -->
+            <th:block th:unless="${#lists.isEmpty(promotionListVOS)}">
+                <th:block th:each="promotion: ${promotionListVOS}">
+                    <li>
+                        <a th:href="@{'/goods/detail/'+${promotion.goodsId}}">
+                            <img th:src="@{${promotion.goodsCoverImg}}" th:alt="${promotion.goodsName}" th:title="${promotion.goodsName}">
+                            <p class="name" th:text="${promotion.goodsName}"></p>
+                            <p class="counter" th:text="${promotion.promotionName}">猜你喜欢</p>
+                        </a>
+                        <div class="price">
+                            <div class="itemPrice">
+                                <span class="promotionPrice" th:text="'￥'+${promotion.promotionPrice}+'.00'"></span>
+                                <a class="link" target="_blank" th:href="@{'/goods/detail/'+${promotion.goodsId}}">立即抢购</a>
+                                <br/>
+                                <span class="sellingPrice" th:text="'￥'+${promotion.originalPrice}+'.00'"></span>
+                            </div>
+                        </div>
+                    </li>
+                </th:block>
+            </th:block>
+        </ul>
+    </div>
+</content>
+<div th:replace="mall/footer::footer-fragment"></div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/mall/js/search.js}" type="text/javascript"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+</body>
+</html>
